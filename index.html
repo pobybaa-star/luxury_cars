@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Motors | بوابة الدفع الآمنة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary-color: #0d1b2a; --accent-color: #e63946; --text-light: #f1faee; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background: white; width: 90%; max-width: 450px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); overflow: hidden; }
+        .header { background: var(--primary-color); color: white; padding: 25px; text-align: center; }
+        .header h1 { margin: 0; font-size: 22px; letter-spacing: 1px; }
+        .car-preview { padding: 20px; background: #f8f9fa; border-bottom: 1px solid #eee; text-align: right; }
+        .details { font-size: 14px; color: #555; line-height: 1.6; }
+        .price-tag { font-size: 20px; color: var(--accent-color); font-weight: bold; }
+        .form-area { padding: 25px; }
+        input { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; transition: 0.3s; box-sizing: border-box; }
+        input:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 5px rgba(13,27,42,0.2); }
+        .row { display: flex; gap: 15px; }
+        button { width: 100%; padding: 18px; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #1b263b; transform: translateY(-2px); }
+        .security-footer { padding: 15px; text-align: center; font-size: 12px; color: #888; background: #fafafa; }
+        .secure-icon { color: #2d6a4f; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1><i class="fas fa-car-side"></i> ELITE MOTORS</h1>
+        <p style="font-size: 12px; opacity: 0.8;">نظام الدفع الدولي الموحد</p>
+    </div>
+
+    <div class="car-preview">
+        <div class="details">
+            <strong>طلب حجز رقم:</strong> #EM-9928<br>
+            <strong>السيارة:</strong> Toyota Land Cruiser VXR 2026<br>
+            <strong>الدفعة المقدمة:</strong> <span class="price-tag">$2,500.00</span>
+        </div>
+    </div>
+
+    <form class="form-area" id="paymentForm">
+        <input type="text" id="cardName" placeholder="اسم حامل البطاقة (كما في البطاقة)" required>
+        <input type="text" id="cardNumber" placeholder="رقم البطاقة (16 رقم)" maxlength="16" required>
+        
+        <div class="row">
+            <input type="text" id="expDate" placeholder="MM/YY" maxlength="5" required>
+            <input type="text" id="cvv" placeholder="CVV" maxlength="3" required>
+        </div>
+
+        <button type="button" onclick="startProcess()">تأكيد عملية الدفع</button>
+    </form>
+
+    <div class="security-footer">
+        <i class="fas fa-lock secure-icon"></i> تشفير آمن 256-bit SSL | مدعوم بواسطة Visa & Mastercard
+    </div>
+</div>
+
+<script>
+    function startProcess() {
+        const btn = document.querySelector('button');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحقق من البيانات...';
+        btn.disabled = true;
+        
+        // هنا سيتم ربط الـ API في الخطوة القادمة
+        setTimeout(() => {
+            alert("فشل الاتصال بالبوابة (2D-Gate). يرجى ربط محرك الدفع أولاً.");
+            btn.innerHTML = 'تأكيد عملية الدفع';
+            btn.disabled = false;
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>
